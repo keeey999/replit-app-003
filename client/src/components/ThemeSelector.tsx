@@ -63,7 +63,7 @@ export default function ThemeSelector({ selectedThemeId, onSelectTheme }: ThemeS
       </div>
       
       <div 
-        className="grid grid-cols-2 gap-3 max-h-44 overflow-y-auto px-1 pb-1 theme-grid" 
+        className="grid grid-cols-2 gap-3 max-h-60 overflow-y-auto px-1 pb-1 theme-grid" 
         {...swipeHandlers}
       >
         {themesInCategory.map((theme) => (

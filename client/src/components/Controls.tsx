@@ -346,22 +346,7 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
           {/* 詳細設定タブ */}
           {activeTab === 'advanced' && (
             <div className="space-y-4">
-              {/* Size Slider */}
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <Label htmlFor="size" className="text-sm">サイズ</Label>
-                  <span className="text-secondary text-sm">{config.size}px</span>
-                </div>
-                <Slider
-                  id="size"
-                  min={300}
-                  max={1000}
-                  step={100}
-                  value={[config.size]}
-                  onValueChange={(value) => onConfigChange({ size: value[0] })}
-                  className="w-full"
-                />
-              </div>
+
               
               {/* Symbol Density */}
               <div className="space-y-2">

@@ -14,7 +14,7 @@ const DEFAULT_CONFIG: CircleConfig = {
   customBackgroundColor: "#121212",
   useCustomColors: false,
   themeId: undefined,
-  size: 500,
+  size: 600,
   symbolDensity: 3,
   showText: true,
 };

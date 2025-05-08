@@ -57,7 +57,7 @@ export const circleConfigSchema = z.object({
   customBackgroundColor: z.string().optional(),
   useCustomColors: z.boolean().default(false),
   themeId: z.string().optional(),
-  size: z.number().min(300).max(1000),
+  size: z.number().min(300).max(1000).default(600),
   symbolDensity: z.number().min(1).max(5),
   showText: z.boolean(),
 });
