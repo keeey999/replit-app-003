@@ -47,7 +47,7 @@ export default function CircleCanvas({
           className="bg-primary hover:bg-primary/80 text-white flex items-center space-x-2"
         >
           <Download className="h-4 w-4" />
-          <span className="hidden sm:inline">Download</span>
+          <span className="hidden sm:inline">ダウンロード</span>
         </Button>
         
         <Button
@@ -55,7 +55,7 @@ export default function CircleCanvas({
           className="bg-accent hover:bg-accent/80 text-black flex items-center space-x-2"
         >
           <Share2 className="h-4 w-4" />
-          <span className="hidden sm:inline">Share</span>
+          <span className="hidden sm:inline">共有</span>
         </Button>
       </div>
       
@@ -66,7 +66,7 @@ export default function CircleCanvas({
         }`}
       >
         <div className="animate-pulse h-2 w-2 rounded-full bg-secondary"></div>
-        <span>Generating circle...</span>
+        <span>生成中...</span>
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ export default function Home() {
               className="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-6 py-3 rounded-lg shadow-lg font-bold transition-colors flex items-center space-x-2 mx-auto"
             >
               <span className="mr-2">✨</span>
-              <span>Generate New Circle</span>
+              <span>新しい錬成陣を生成</span>
             </button>
           </div>
         </div>

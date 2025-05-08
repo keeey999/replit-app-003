@@ -18,7 +18,7 @@ export default function Gallery({ circles, onSelectCircle, onClearGallery, onSav
   return (
     <div className="bg-card rounded-lg shadow-lg overflow-hidden flex-grow">
       <div className="p-4 bg-primary/20 font-cinzel font-bold flex justify-between items-center">
-        <h2 className="text-lg">Recent Circles</h2>
+        <h2 className="text-lg">保存済み錬成陣</h2>
         <div className="flex space-x-2">
           <Button
             onClick={onSaveCircle}
@@ -26,7 +26,7 @@ export default function Gallery({ circles, onSelectCircle, onClearGallery, onSav
             variant="outline"
             className="text-accent hover:text-secondary transition-colors text-sm"
           >
-            <Save className="h-4 w-4 mr-1" /> Save
+            <Save className="h-4 w-4 mr-1" /> 保存
           </Button>
           <Button
             onClick={onClearGallery}
@@ -34,7 +34,7 @@ export default function Gallery({ circles, onSelectCircle, onClearGallery, onSav
             variant="outline"
             className="text-accent hover:text-secondary transition-colors text-sm"
           >
-            <Trash2 className="h-4 w-4 mr-1" /> Clear
+            <Trash2 className="h-4 w-4 mr-1" /> クリア
           </Button>
         </div>
       </div>
@@ -56,23 +56,23 @@ export default function Gallery({ circles, onSelectCircle, onClearGallery, onSav
                       {circle.imageUrl ? (
                         <img 
                           src={circle.imageUrl} 
-                          alt={`Transmutation circle: ${circle.name}`}
+                          alt={`錬成陣: ${circle.name}`}
                           className="w-full h-full object-cover"
                         />
                       ) : (
-                        <div className="text-center text-sm text-muted-foreground">No Image</div>
+                        <div className="text-center text-sm text-muted-foreground">画像なし</div>
                       )}
                     </div>
                   </DialogTrigger>
                   
                   <DialogContent className="max-w-lg">
                     <DialogHeader>
-                      <DialogTitle>{circle.name || "Transmutation Circle"}</DialogTitle>
+                      <DialogTitle>{circle.name || "錬成陣"}</DialogTitle>
                     </DialogHeader>
                     {selectedImage && (
                       <img 
                         src={selectedImage} 
-                        alt="Transmutation circle enlarged view" 
+                        alt="錬成陣の拡大表示" 
                         className="w-full rounded-md"
                       />
                     )}
@@ -83,7 +83,7 @@ export default function Gallery({ circles, onSelectCircle, onClearGallery, onSav
           </ScrollArea>
         ) : (
           <div className="min-h-[100px] flex items-center justify-center text-center text-sm text-muted-foreground">
-            Generate and save circles to build your collection
+            錬成陣を生成して保存するとここに表示されます
           </div>
         )}
       </div>
