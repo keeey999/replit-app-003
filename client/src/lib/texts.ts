@@ -1,4 +1,4 @@
-// Runic text generator for transmutation circles
+// 錬成陣のテキスト生成
 export function drawRunicText(
   ctx: CanvasRenderingContext2D,
   centerX: number,
@@ -11,25 +11,25 @@ export function drawRunicText(
   
   let text = "";
   
-  // Choose text based on style
+  // スタイルに基づいてテキストを選択
   switch (style) {
     case "classic":
-      text = "EQUIVALENT EXCHANGE • HUMANKIND CANNOT GAIN ANYTHING WITHOUT GIVING SOMETHING IN RETURN •";
+      text = "神秘なる力 • 調和と均衡 • 知恵と理解 • 魂の成長 • 内なる変化 • 光の回廊 • 真理の探求 •";
       break;
     case "elemental":
-      text = "EARTH • AIR • FIRE • WATER • SPIRIT • MATTER • ENERGY • TRANSFORMATION • BALANCE •";
+      text = "地 • 風 • 火 • 水 • 霊 • 物質 • エネルギー • 変換 • バランス •";
       break;
     case "runic":
-      text = "ANSUZ • URUZ • THURISAZ • KENAZ • RAIDO • GEBO • SOWILO • HAGALAZ • TIWAZ • BERKANA • ALGIZ •";
+      text = "叡智 • 力 • 守護 • 創造 • 運命 • 贈与 • 太陽 • 変化 • 勝利 • 成長 • 保護 •";
       break;
     case "celestial":
-      text = "SUN • MOON • MERCURY • VENUS • MARS • JUPITER • SATURN • CELESTIAL ORDER • COSMIC BALANCE •";
+      text = "太陽 • 月 • 水星 • 金星 • 火星 • 木星 • 土星 • 天体秩序 • 宇宙調和 •";
       break;
     case "modern":
-      text = "MATTER • ENERGY • TIME • SPACE • ENTROPY • ORDER • CHAOS • CREATION • DESTRUCTION • UNITY •";
+      text = "物質 • エネルギー • 時間 • 空間 • エントロピー • 秩序 • 混沌 • 創造 • 破壊 • 統一 •";
       break;
     default:
-      text = "EQUIVALENT EXCHANGE • HUMANKIND CANNOT GAIN ANYTHING WITHOUT GIVING SOMETHING IN RETURN •";
+      text = "神秘なる力 • 調和と均衡 • 知恵と理解 • 魂の成長 • 内なる変化 • 光の回廊 • 真理の探求 •";
   }
   
   // Calculate font size based on radius
@@ -46,26 +46,26 @@ export function drawRunicText(
     "Cinzel, serif"
   );
   
-  // Add inner text circle for more complex patterns
+  // 複雑なパターンには内側のテキスト円を追加
   if (style === "runic" || style === "celestial") {
-    // Use Japanese text for runic style
+    // スタイルに基づいて日本語テキストを使用
     const innerText = style === "runic"
-      ? "守護の印 • 力の源 • 創造の力 • 変革の理 • 反応の環 • 等価交換 •"
-      : "AS ABOVE • SO BELOW • THE MACROCOSM • THE MICROCOSM • HARMONY • BALANCE •";
+      ? "守護の印 • 力の源 • 創造の力 • 変革の理 • 反応の環 • 変容の法則 •"
+      : "上なるもの • 下なるもの • 大宇宙 • 小宇宙 • 調和 • バランス •";
     
     drawTextAlongCircle(
       ctx,
       innerText,
       centerX,
       centerY,
-      radius * 0.45, // Inner text radius
+      radius * 0.45, // 内側テキストの半径
       fontSize * 0.8,
-      style === "runic" ? "'Noto Sans JP', sans-serif" : "Cinzel, serif"
+      "'Noto Sans JP', sans-serif"
     );
   }
 }
 
-// Function to draw text along a circular path
+// 円形に沿ってテキストを描画する関数
 function drawTextAlongCircle(
   ctx: CanvasRenderingContext2D,
   text: string,
@@ -84,27 +84,29 @@ function drawTextAlongCircle(
   
   for (let i = 0; i < charCount; i++) {
     const char = text[i];
-    const angle = i * anglePerChar - Math.PI / 2; // Start at top
+    const angle = i * anglePerChar - Math.PI / 2; // 上部から開始
     
     ctx.save();
     ctx.translate(
       centerX + radius * Math.cos(angle),
       centerY + radius * Math.sin(angle)
     );
-    ctx.rotate(angle + Math.PI / 2); // Rotate text to follow circle
+    ctx.rotate(angle + Math.PI / 2); // テキストを円に沿って回転
     ctx.fillText(char, 0, 0);
     ctx.restore();
   }
 }
 
-// Generate random pseudo-runic text
+// ランダムな神秘文字テキストを生成
 export function generateRunicText(length: number): string {
+  // ルーン文字
   const runes = [
     "ᚠ", "ᚢ", "ᚦ", "ᚨ", "ᚱ", "ᚲ", "ᚷ", "ᚹ", "ᚺ", "ᚾ",
     "ᛁ", "ᛃ", "ᛇ", "ᛈ", "ᛉ", "ᛊ", "ᛏ", "ᛒ", "ᛖ", "ᛗ",
     "ᛚ", "ᛜ", "ᛞ", "ᛟ"
   ];
   
+  // 錬金術シンボル
   const alchemicalCharacters = [
     "🜀", "🜁", "🜂", "🜃", "🜄", "🜅", "🜆", "🜇", "🜈", "🜉",
     "🜊", "🜋", "🜌", "🜍", "🜎", "🜏", "🜐", "🜑", "🜒", "🜓",
@@ -115,7 +117,7 @@ export function generateRunicText(length: number): string {
     "🜼", "🜽", "🜾", "🜿"
   ];
   
-  // Combine both character sets
+  // 両方の文字セットを組み合わせる
   const allChars = [...runes, ...alchemicalCharacters];
   
   let result = "";
