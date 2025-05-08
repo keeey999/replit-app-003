@@ -21,16 +21,17 @@ export default function Header() {
     <header className="bg-card p-4 shadow-lg border-b border-primary/30">
       <div className="container mx-auto flex flex-wrap justify-between items-center">
         <div className="flex items-center">
-          <div className="mr-2 symbol-glow">
-            <span className="text-secondary text-3xl">✧</span>
-          </div>
           <h1 className="text-xl md:text-2xl font-cinzel font-bold">
             <Link href="/">
               <div className="flex items-center">
-                <span className="bg-gradient-to-r from-primary via-purple-400 to-secondary bg-clip-text text-transparent font-bold">
-                  Alche<span className="text-accent">Maker</span>
-                </span>{" "}
-                <span className="text-secondary ml-2 text-glow">錬成陣</span>
+                <div className="flex items-center">
+                  <span className="text-secondary text-2xl mr-1">✦</span>
+                  <span className="bg-gradient-to-r from-primary via-purple-400 to-secondary bg-clip-text text-transparent font-bold">
+                    Alche<span className="text-accent">Maker</span>
+                  </span>
+                  <span className="text-secondary mx-1">✦</span>
+                </div>
+                <span className="text-primary dark:text-secondary ml-1">錬成陣</span>
               </div>
             </Link>
           </h1>
