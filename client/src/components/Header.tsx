@@ -22,7 +22,7 @@ export default function Header() {
       <div className="container mx-auto flex flex-wrap justify-between items-center">
         <div className="flex items-center">
           <div className="mr-2 symbol-glow">
-            <span className="text-secondary text-2xl">⚗️</span>
+            <span className="text-secondary text-3xl">✧</span>
           </div>
           <h1 className="text-xl md:text-2xl font-cinzel font-bold">
             <Link href="/">
@@ -71,12 +71,6 @@ export default function Header() {
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
           )}
-          
-          <div className="hidden md:block">
-            <span className="font-japanese text-sm">
-              <span className="text-secondary text-glow">神秘の図形</span>
-            </span>
-          </div>
         </div>
       </div>
     </header>
