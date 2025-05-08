@@ -41,13 +41,13 @@ export default function ThemeSelector({ selectedThemeId, onSelectTheme }: ThemeS
               prev === 0 ? themeCategories.length - 1 : prev - 1
             );
           }}
-          className="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+          className="p-1.5 rounded-full bg-slate-700 hover:bg-slate-600 text-white"
           aria-label="前のカテゴリー"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
         
-        <span className="font-medium text-sm">
+        <span className="font-medium text-sm bg-slate-800 text-white px-3 py-1 rounded-md">
           {activeCategory.name}
         </span>
         
@@ -55,7 +55,7 @@ export default function ThemeSelector({ selectedThemeId, onSelectTheme }: ThemeS
           onClick={() => {
             setActiveCategoryIndex((prev) => (prev + 1) % themeCategories.length);
           }}
-          className="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+          className="p-1.5 rounded-full bg-slate-700 hover:bg-slate-600 text-white"
           aria-label="次のカテゴリー"
         >
           <ChevronRight className="w-4 h-4" />
@@ -103,9 +103,9 @@ function ThemePreviewCard({ theme, isSelected, onSelect }: ThemePreviewCardProps
     <button
       type="button"
       onClick={onSelect}
-      className={`relative flex flex-col rounded-md overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all ${
+      className={`relative flex flex-col rounded-md overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-purple-500 transition-all ${
         isSelected 
-          ? "ring-2 ring-offset-2 ring-primary scale-[1.03] shadow-lg" 
+          ? "ring-2 ring-offset-2 ring-purple-500 scale-[1.03] shadow-lg" 
           : "ring-0 scale-100"
       }`}
       style={{ backgroundColor: theme.backgroundColor }}

@@ -27,7 +27,6 @@ export const circles = pgTable("circles", {
   size: integer("size").notNull(),
   symbolDensity: integer("symbol_density").notNull(),
   showText: boolean("show_text").notNull(),
-  animation: boolean("animation").notNull(),
   config: jsonb("config").notNull(),
   imageUrl: text("image_url"),
   createdAt: text("created_at").notNull(),
@@ -61,7 +60,6 @@ export const circleConfigSchema = z.object({
   size: z.number().min(300).max(1000),
   symbolDensity: z.number().min(1).max(5),
   showText: z.boolean(),
-  animation: z.boolean(),
 });
 
 export type CircleTheme = z.infer<typeof circleThemeSchema>;

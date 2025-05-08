@@ -17,7 +17,6 @@ const DEFAULT_CONFIG: CircleConfig = {
   size: 500,
   symbolDensity: 3,
   showText: true,
-  animation: true,
 };
 
 export function useTransmutationCircle() {
@@ -255,7 +254,6 @@ export function useTransmutationCircle() {
         size: circleConfig.size,
         symbolDensity: circleConfig.symbolDensity,
         showText: circleConfig.showText,
-        animation: circleConfig.animation,
         config: circleConfig,
         imageUrl,
         createdAt: new Date().toISOString(),

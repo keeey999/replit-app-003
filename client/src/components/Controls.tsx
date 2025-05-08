@@ -371,27 +371,15 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
                 </div>
               </div>
               
-              {/* Animation Toggle */}
-              <div className="space-y-2">
-                <Label htmlFor="animation" className="text-sm">アニメーション効果</Label>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-muted-foreground">
-                    ゆっくりと回転するエフェクトを追加します
-                  </span>
-                  <Switch
-                    id="animation"
-                    checked={config.animation}
-                    onCheckedChange={(checked) => onConfigChange({ animation: checked })}
-                  />
-                </div>
-              </div>
+
 
               {/* Accessibility Info */}
-              <div className="rounded-md bg-muted/50 p-3 text-xs space-y-2 mt-4">
+              <div className="rounded-md bg-slate-800 p-3 text-xs space-y-2 mt-4 text-white">
                 <h3 className="font-medium">アクセシビリティ情報</h3>
                 <p>現在の配色は、視覚障害をお持ちの方にも見やすい設計になっています。</p>
                 <p>
-                  コントラスト比: 
+                  コントラスト比: {' '}
+                  <span className="font-bold text-yellow-300">
                   {config.useCustomColors 
                     ? calculateContrastRatio(
                         config.customPrimaryColor || "#FFD700", 
@@ -407,6 +395,7 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
                           "#121212"
                         ).toFixed(2)
                   }
+                  </span>
                 </p>
               </div>
             </div>
