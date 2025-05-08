@@ -42,6 +42,7 @@ export const circleConfigSchema = z.object({
   complexity: z.number().min(1).max(5),
   style: z.string(),
   colorScheme: z.string(),
+  backgroundColor: z.string().default("dark"),
   size: z.number().min(300).max(1000),
   symbolDensity: z.number().min(1).max(5),
   showText: z.boolean(),

@@ -43,7 +43,7 @@ export default function Header() {
               variant="ghost" 
               size="sm"
               asChild
-              className="text-accent hover:text-secondary transition-colors"
+              className="text-primary dark:text-accent hover:text-secondary transition-colors"
             >
               <Link href="/about">
                 <HelpCircle className="h-5 w-5" />
@@ -56,7 +56,7 @@ export default function Header() {
               variant="ghost"
               size="sm"
               asChild
-              className="text-accent hover:text-secondary transition-colors"
+              className="text-primary dark:text-accent hover:text-secondary transition-colors"
             >
               <Link href="/">ホーム</Link>
             </Button>
@@ -67,7 +67,7 @@ export default function Header() {
               variant="ghost"
               size="sm"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="text-accent hover:text-secondary transition-colors"
+              className="text-primary dark:text-accent hover:text-secondary transition-colors"
             >
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
