@@ -16,17 +16,17 @@ export default function CircleCanvas({
   onShare 
 }: CircleCanvasProps) {
   return (
-    <div className="bg-card rounded-lg shadow-lg overflow-hidden flex flex-col items-center justify-center p-6 relative min-h-[350px] md:min-h-[500px]">
+    <div className="bg-card-gradient rounded-lg shadow-lg overflow-hidden flex flex-col items-center justify-center p-6 relative min-h-[350px] md:min-h-[500px]">
       <div className="absolute inset-0 flex items-center justify-center">
         {/* Decorative background elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute left-0 top-0 h-full w-full bg-[radial-gradient(circle,rgba(123,31,162,0.2)_0%,rgba(18,18,18,0)_70%)]"></div>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute left-0 top-0 h-full w-full bg-[radial-gradient(circle,rgba(180,120,255,0.2)_0%,rgba(18,18,18,0)_70%)]"></div>
         </div>
         
         {/* Decorative spinning elements */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-[90%] h-[90%] border border-primary/20 rounded-full animate-spin-slow"></div>
-          <div className="absolute w-[95%] h-[95%] border border-secondary/20 rounded-full animate-spin-slow" style={{ animationDirection: 'reverse' }}></div>
+          <div className="w-[90%] h-[90%] border border-primary/30 rounded-full animate-spin-slow"></div>
+          <div className="absolute w-[95%] h-[95%] border border-secondary/30 rounded-full animate-spin-slow" style={{ animationDirection: 'reverse' }}></div>
         </div>
       </div>
       

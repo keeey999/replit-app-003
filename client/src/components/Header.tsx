@@ -27,8 +27,8 @@ export default function Header() {
           <h1 className="text-xl md:text-2xl font-cinzel font-bold">
             <Link href="/">
               <a className="flex items-center">
-                <span className="text-primary">錬成陣</span>{" "}
-                <span className="text-secondary ml-2">ジェネレーター</span>
+                <span className="text-primary">AlcheMaker</span>{" "}
+                <span className="text-secondary ml-2 text-glow">錬成陣</span>
               </a>
             </Link>
           </h1>

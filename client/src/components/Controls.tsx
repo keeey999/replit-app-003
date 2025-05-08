@@ -28,17 +28,17 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
   ];
 
   return (
-    <div className="bg-card rounded-lg shadow-lg overflow-hidden">
-      <div className="p-4 bg-primary/20 font-cinzel font-bold flex justify-between items-center">
+    <div className="bg-card-gradient rounded-lg shadow-lg overflow-hidden">
+      <div className="p-4 bg-mystic-gradient font-cinzel font-bold flex justify-between items-center">
         <h2 className="text-lg flex items-center">
           カスタマイズ
-          <button onClick={onInfoClick} className="ml-2 text-accent hover:text-secondary transition-colors">
+          <button onClick={onInfoClick} className="ml-2 text-white hover:text-secondary transition-colors">
             <CircleHelp className="h-5 w-5" />
           </button>
         </h2>
         <button 
           onClick={() => setIsControlsOpen(!isControlsOpen)} 
-          className="text-accent hover:text-secondary transition-colors"
+          className="text-white hover:text-secondary transition-colors"
         >
           {isControlsOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
         </button>
