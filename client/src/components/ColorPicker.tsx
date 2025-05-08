@@ -33,26 +33,24 @@ export default function ColorPicker({ label, color, onChange }: ColorPickerProps
       <Label className="text-sm">{label}</Label>
       <div className="relative">
         <div
-          className="w-8 h-8 rounded-full cursor-pointer border-2 border-white dark:border-white"
+          className="w-8 h-8 rounded-full cursor-pointer border-2 border-white"
           style={{ backgroundColor: color }}
           onClick={() => setIsOpen(true)}
         />
 
         {isOpen && (
           <div
-            className="absolute z-50 mt-2 bg-card rounded-lg shadow-lg p-3 left-0 sm:left-auto bottom-full sm:bottom-auto"
+            className="fixed z-[100] bg-card rounded-lg shadow-lg p-3 border border-slate-600"
+            style={{ 
+              bottom: window.innerHeight / 2 - 100,
+              left: window.innerWidth / 2 - 100,
+            }}
             ref={popover}
             onClick={(e) => e.stopPropagation()}
           >
             <HexColorPicker color={color} onChange={onChange} />
-            <div className="mt-2 text-xs flex justify-between">
+            <div className="mt-2 text-xs">
               <span>現在の色: {color}</span>
-              <button 
-                className="text-primary hover:text-accent ml-2 px-2 py-1 bg-slate-700 rounded-md"
-                onClick={() => setIsOpen(false)}
-              >
-                閉じる
-              </button>
             </div>
           </div>
         )}

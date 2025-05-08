@@ -78,7 +78,11 @@ export default function EnhancedColorPicker({
         {isOpen && (
           <div
             ref={popoverRef}
-            className="absolute z-50 left-0 transform -translate-y-full sm:translate-y-0 sm:top-12 w-full p-3 rounded-md shadow-lg bg-popover border border-border"
+            className="fixed z-[100] bg-popover rounded-lg shadow-lg p-3 border border-slate-600"
+            style={{ 
+              bottom: window.innerHeight / 2 - 120,
+              left: window.innerWidth / 2 - 100,
+            }}
           >
             <HexColorPicker color={currentColor} onChange={handleColorChange} />
             
@@ -115,17 +119,6 @@ export default function EnhancedColorPicker({
               }`}>
                 {contrastInfo.complianceLevel}
               </div>
-            </div>
-            
-            {/* 閉じるボタン */}
-            <div className="mt-3 flex justify-end">
-              <button
-                type="button"
-                onClick={() => setIsOpen(false)}
-                className="px-3 py-1 text-xs bg-slate-700 hover:bg-slate-600 text-white rounded-md"
-              >
-                閉じる
-              </button>
             </div>
           </div>
         )}
