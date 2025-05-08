@@ -32,13 +32,32 @@ export default function Home() {
           />
           
           {/* Action Buttons */}
-          <div className="mt-4 flex justify-center">
+          <div className="mt-4 flex justify-center space-x-4">
             <button 
               onClick={generateCircle}
-              className="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-6 py-3 rounded-lg shadow-lg font-bold transition-colors flex items-center space-x-2 mx-auto"
+              className="action-button px-6 py-3 flex items-center space-x-2"
+              disabled={isGenerating}
             >
               <span className="mr-2">✨</span>
               <span>新しい錬成陣を生成</span>
+            </button>
+            
+            <button 
+              onClick={downloadCircle}
+              className="action-button px-6 py-3 flex items-center space-x-2"
+              disabled={isGenerating}
+            >
+              <span className="mr-2">⬇️</span>
+              <span>ダウンロード</span>
+            </button>
+            
+            <button 
+              onClick={shareCircle}
+              className="action-button px-6 py-3 flex items-center space-x-2"
+              disabled={isGenerating}
+            >
+              <span className="mr-2">🔗</span>
+              <span>共有</span>
             </button>
           </div>
         </div>

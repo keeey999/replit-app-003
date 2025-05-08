@@ -50,7 +50,7 @@
     --popover-foreground: 240 10% 3.9%;
     --primary: 270 70% 45%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 45 100% 55%;
+    --secondary: 45 85% 50%;
     --secondary-foreground: 0 0% 0%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
@@ -142,5 +142,32 @@
   .bg-card-gradient {
     background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--card)/0.9) 100%);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  }
+  
+  /* Logo styles */
+  .logo-text {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  
+  /* Better button styles */
+  .action-button {
+    @apply rounded-full font-bold shadow-lg transition-all duration-300;
+    @apply hover:shadow-xl hover:translate-y-[-2px];
+    @apply disabled:opacity-70 disabled:translate-y-0 disabled:shadow-none;
+  }
+  
+  /* Dark/Light mode improvements */
+  .dark .action-button {
+    @apply bg-gradient-to-r from-purple-600 to-purple-800;
+    @apply hover:from-purple-500 hover:to-purple-700;
+    @apply text-white;
+  }
+  
+  .light .action-button {
+    @apply bg-gradient-to-r from-purple-500 to-purple-700;
+    @apply hover:from-purple-400 hover:to-purple-600;
+    @apply text-white;
   }
 }

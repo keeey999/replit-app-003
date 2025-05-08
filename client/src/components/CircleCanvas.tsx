@@ -40,27 +40,6 @@ export default function CircleCanvas({
         />
       </div>
       
-      {/* Canvas Overlay Controls */}
-      <div className="absolute bottom-4 right-4 flex space-x-2">
-        <Button
-          onClick={onDownload}
-          className="bg-primary hover:bg-primary/80 text-white flex items-center space-x-2"
-          disabled={isGenerating}
-        >
-          <Download className="h-4 w-4" />
-          <span className="hidden sm:inline">ダウンロード</span>
-        </Button>
-        
-        <Button
-          onClick={onShare}
-          className="bg-accent hover:bg-accent/80 text-black flex items-center space-x-2"
-          disabled={isGenerating}
-        >
-          <Share2 className="h-4 w-4" />
-          <span className="hidden sm:inline">共有</span>
-        </Button>
-      </div>
-      
       {/* Generation Status */}
       <div 
         className={`absolute top-4 left-4 bg-background/80 px-3 py-1 rounded text-sm flex items-center space-x-2 transition-opacity duration-300 ${
