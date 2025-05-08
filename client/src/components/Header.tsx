@@ -1,18 +1,9 @@
-import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "@/hooks/use-theme";
-import { Sun, Moon, HelpCircle } from "lucide-react";
+import { HelpCircle } from "lucide-react";
 
 export default function Header() {
   const [location] = useLocation();
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  
-  // Used to prevent hydration mismatch
-  useEffect(() => {
-    setMounted(true);
-  }, []);
   
   const isHome = location === "/";
   const isAbout = location === "/about";
@@ -31,7 +22,7 @@ export default function Header() {
                   </span>
                   <span className="text-secondary mx-1">✦</span>
                 </div>
-                <span className="text-primary dark:text-secondary ml-1">錬成陣</span>
+                <span className="text-secondary ml-1">錬成陣</span>
               </div>
             </Link>
           </h1>
@@ -43,7 +34,7 @@ export default function Header() {
               variant="ghost" 
               size="sm"
               asChild
-              className="text-primary dark:text-accent hover:text-secondary transition-colors"
+              className="text-primary hover:text-secondary transition-colors"
             >
               <Link href="/about">
                 <HelpCircle className="h-5 w-5" />
@@ -56,20 +47,9 @@ export default function Header() {
               variant="ghost"
               size="sm"
               asChild
-              className="text-primary dark:text-accent hover:text-secondary transition-colors"
+              className="text-primary hover:text-secondary transition-colors"
             >
               <Link href="/">ホーム</Link>
-            </Button>
-          )}
-          
-          {mounted && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="text-primary dark:text-accent hover:text-secondary transition-colors"
-            >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
           )}
         </div>
