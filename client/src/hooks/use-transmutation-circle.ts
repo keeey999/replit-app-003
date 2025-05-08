@@ -121,15 +121,34 @@ export function useTransmutationCircle() {
   const downloadCircle = useCallback(() => {
     if (!canvasRef.current) return;
     
-    const link = document.createElement('a');
-    link.download = `alchemaker-${Date.now()}.png`;
-    link.href = canvasRef.current.toDataURL('image/png');
-    link.click();
-    
-    toast({
-      title: "ダウンロード完了",
-      description: "錬成陣を端末に保存しました",
-    });
+    try {
+      // Create an anchor element
+      const link = document.createElement('a');
+      // Set the download attribute with a filename
+      link.download = `alchemaker-${Date.now()}.png`;
+      // Get the canvas data as a PNG image
+      const dataUrl = canvasRef.current.toDataURL('image/png');
+      // Set the href to the data URL
+      link.href = dataUrl;
+      // Append to the document temporarily
+      document.body.appendChild(link);
+      // Programmatically click the link to trigger the download
+      link.click();
+      // Remove the link element
+      document.body.removeChild(link);
+      
+      toast({
+        title: "ダウンロード完了",
+        description: "錬成陣を端末に保存しました",
+      });
+    } catch (error) {
+      console.error("ダウンロードエラー:", error);
+      toast({
+        title: "エラー",
+        description: "錬成陣のダウンロードに失敗しました",
+        variant: "destructive",
+      });
+    }
   }, [toast]);
 
   // Share the current circle
@@ -255,9 +274,5 @@ export function useTransmutationCircle() {
     generateCircle,
     downloadCircle,
     shareCircle,
-    savedCircles,
-    saveCurrentCircle,
-    clearGallery,
-    selectCircle,
   };
 }

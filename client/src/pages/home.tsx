@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CircleCanvas from "@/components/CircleCanvas";
 import Controls from "@/components/Controls";
-import Gallery from "@/components/Gallery";
+
 import InfoModal from "@/components/InfoModal";
 import { CircleConfig } from "@shared/schema";
 import { useTransmutationCircle } from "@/hooks/use-transmutation-circle";
@@ -17,10 +17,6 @@ export default function Home() {
     generateCircle,
     downloadCircle,
     shareCircle,
-    savedCircles,
-    saveCurrentCircle,
-    clearGallery,
-    selectCircle,
   } = useTransmutationCircle();
   
   return (
@@ -47,19 +43,12 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Right Side - Controls & Gallery */}
+        {/* Right Side - Controls */}
         <div className="lg:w-1/3 flex flex-col gap-4">
           <Controls
             config={circleConfig}
             onConfigChange={updateCircleConfig}
             onInfoClick={() => setIsInfoModalOpen(true)}
-          />
-          
-          <Gallery
-            circles={savedCircles}
-            onSelectCircle={selectCircle}
-            onClearGallery={clearGallery}
-            onSaveCircle={() => saveCurrentCircle()}
           />
         </div>
       </div>
