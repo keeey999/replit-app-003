@@ -16,7 +16,7 @@ export default function CircleCanvas({
   onShare 
 }: CircleCanvasProps) {
   return (
-    <div className="bg-card-gradient rounded-lg shadow-lg overflow-hidden flex flex-col items-center justify-center p-4 md:p-6 relative min-h-[350px] md:min-h-[500px]">
+    <div className="bg-card-gradient rounded-lg shadow-lg overflow-hidden flex flex-col items-center justify-center p-4 md:p-6 relative min-h-[400px] md:min-h-[650px]">
       <div className="absolute inset-0 flex items-center justify-center">
         {/* Decorative background elements */}
         <div className="absolute inset-0 opacity-60">
@@ -42,8 +42,8 @@ export default function CircleCanvas({
       <div className="relative z-10 rounded-full overflow-hidden">
         <canvas 
           ref={canvasRef}
-          width={500} 
-          height={500} 
+          width={600} 
+          height={600} 
           className="max-w-full h-auto bg-transparent"
           style={{ 
             borderRadius: "50%",
