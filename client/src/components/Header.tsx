@@ -72,7 +72,7 @@ export default function Header() {
           
           <div className="hidden md:block">
             <span className="font-japanese text-sm">
-              神秘の図形
+              <span className="text-secondary text-glow">神秘の図形</span>
             </span>
           </div>
         </div>

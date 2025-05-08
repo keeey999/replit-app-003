@@ -31,19 +31,26 @@ export function useTransmutationCircle() {
   const saveCircleMutation = useMutation({
     mutationFn: async (circleData: Partial<Circle>) => {
       const response = await apiRequest('POST', '/api/circles', circleData);
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || "保存に失敗しました");
+      }
+      
       return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/circles'] });
       toast({
-        title: "Success",
-        description: "Circle saved to gallery",
+        title: "成功",
+        description: "錬成陣をギャラリーに保存しました",
       });
     },
     onError: (error) => {
+      console.error("Save error:", error);
       toast({
-        title: "Error",
-        description: "Failed to save circle: " + error.message,
+        title: "エラー",
+        description: "保存に失敗しました: " + error.message,
         variant: "destructive",
       });
     },
@@ -62,19 +69,27 @@ export function useTransmutationCircle() {
   // Clear gallery mutation
   const clearGalleryMutation = useMutation({
     mutationFn: async () => {
-      await apiRequest('DELETE', '/api/circles');
+      const response = await apiRequest('DELETE', '/api/circles');
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || "ギャラリーのクリアに失敗しました");
+      }
+      
+      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/circles'] });
       toast({
-        title: "Success",
-        description: "Gallery cleared",
+        title: "完了",
+        description: "ギャラリーをクリアしました",
       });
     },
     onError: (error) => {
+      console.error("Clear gallery error:", error);
       toast({
-        title: "Error",
-        description: "Failed to clear gallery: " + error.message,
+        title: "エラー",
+        description: "ギャラリーのクリアに失敗しました: " + error.message,
         variant: "destructive",
       });
     },
@@ -107,13 +122,13 @@ export function useTransmutationCircle() {
     if (!canvasRef.current) return;
     
     const link = document.createElement('a');
-    link.download = `transmutation-circle-${Date.now()}.png`;
+    link.download = `alchemaker-${Date.now()}.png`;
     link.href = canvasRef.current.toDataURL('image/png');
     link.click();
     
     toast({
-      title: "Downloaded",
-      description: "Transmutation circle saved to your device",
+      title: "ダウンロード完了",
+      description: "錬成陣を端末に保存しました",
     });
   }, [toast]);
 
@@ -128,11 +143,11 @@ export function useTransmutationCircle() {
         });
         
         if (blob) {
-          const file = new File([blob], "transmutation-circle.png", { type: "image/png" });
+          const file = new File([blob], "alchemaker.png", { type: "image/png" });
           
           await navigator.share({
-            title: "Transmutation Circle",
-            text: "Check out this transmutation circle I created!",
+            title: "AlcheMaker 錬成陣",
+            text: "AlcheMakerで作成した錬成陣をチェックしてください！",
             files: [file],
           });
         }
@@ -146,22 +161,22 @@ export function useTransmutationCircle() {
           await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
           
           toast({
-            title: "Copied to clipboard",
-            description: "Image copied to clipboard. You can now paste it elsewhere.",
+            title: "クリップボードにコピー",
+            description: "画像をクリップボードにコピーしました。別の場所に貼り付けることができます。",
           });
         } else {
           // Open image in new tab as last resort
           const newTab = window.open();
           if (newTab) {
-            newTab.document.write(`<img src="${dataUrl}" alt="Transmutation Circle">`);
+            newTab.document.write(`<img src="${dataUrl}" alt="AlcheMaker 錬成陣">`);
           }
         }
       }
     } catch (error) {
-      console.error("Error sharing:", error);
+      console.error("共有エラー:", error);
       toast({
-        title: "Share failed",
-        description: "Could not share the image. Try downloading instead.",
+        title: "共有失敗",
+        description: "画像を共有できませんでした。代わりにダウンロードをお試しください。",
         variant: "destructive",
       });
     }
@@ -171,28 +186,43 @@ export function useTransmutationCircle() {
   const saveCurrentCircle = useCallback(() => {
     if (!canvasRef.current) return;
     
-    const imageUrl = canvasRef.current.toDataURL('image/png');
-    
-    const newCircle = {
-      name: `Circle ${new Date().toLocaleString()}`,
-      complexity: circleConfig.complexity,
-      style: circleConfig.style,
-      colorScheme: circleConfig.colorScheme,
-      size: circleConfig.size,
-      symbolDensity: circleConfig.symbolDensity,
-      showText: circleConfig.showText,
-      animation: circleConfig.animation,
-      config: circleConfig,
-      imageUrl,
-      createdAt: new Date().toISOString(),
-    };
-    
-    saveCircleMutation.mutate(newCircle);
-  }, [circleConfig, saveCircleMutation]);
+    try {
+      // Compress the image size to reduce payload
+      const imageUrl = canvasRef.current.toDataURL('image/jpeg', 0.7);
+      
+      const newCircle = {
+        name: `錬成陣 ${new Date().toLocaleString('ja-JP')}`,
+        complexity: circleConfig.complexity,
+        style: circleConfig.style,
+        colorScheme: circleConfig.colorScheme,
+        size: circleConfig.size,
+        symbolDensity: circleConfig.symbolDensity,
+        showText: circleConfig.showText,
+        animation: circleConfig.animation,
+        config: circleConfig,
+        imageUrl,
+        createdAt: new Date().toISOString(),
+      };
+      
+      toast({
+        title: "保存中...",
+        description: "錬成陣をギャラリーに保存しています",
+      });
+      
+      saveCircleMutation.mutate(newCircle);
+    } catch (error) {
+      console.error("保存エラー:", error);
+      toast({
+        title: "エラー",
+        description: "保存に失敗しました。もう一度お試しください。",
+        variant: "destructive",
+      });
+    }
+  }, [circleConfig, saveCircleMutation, toast]);
 
   // Clear all saved circles
   const clearGallery = useCallback(() => {
-    if (window.confirm("Are you sure you want to clear all saved circles?")) {
+    if (window.confirm("すべての保存された錬成陣を削除してもよろしいですか？")) {
       clearGalleryMutation.mutate();
     }
   }, [clearGalleryMutation]);

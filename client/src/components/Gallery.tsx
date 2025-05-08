@@ -16,15 +16,15 @@ export default function Gallery({ circles, onSelectCircle, onClearGallery, onSav
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   
   return (
-    <div className="bg-card rounded-lg shadow-lg overflow-hidden flex-grow">
-      <div className="p-4 bg-primary/20 font-cinzel font-bold flex justify-between items-center">
-        <h2 className="text-lg">保存済み錬成陣</h2>
+    <div className="bg-card-gradient rounded-lg shadow-lg overflow-hidden flex-grow">
+      <div className="p-4 bg-mystic-gradient font-cinzel font-bold flex justify-between items-center">
+        <h2 className="text-lg text-white">保存済み錬成陣</h2>
         <div className="flex space-x-2">
           <Button
             onClick={onSaveCircle}
             size="sm"
-            variant="outline"
-            className="text-accent hover:text-secondary transition-colors text-sm"
+            variant="secondary"
+            className="text-black hover:bg-secondary/80 transition-colors text-sm font-bold"
           >
             <Save className="h-4 w-4 mr-1" /> 保存
           </Button>
@@ -32,7 +32,7 @@ export default function Gallery({ circles, onSelectCircle, onClearGallery, onSav
             onClick={onClearGallery}
             size="sm"
             variant="outline"
-            className="text-accent hover:text-secondary transition-colors text-sm"
+            className="text-white hover:text-secondary transition-colors text-sm bg-transparent"
           >
             <Trash2 className="h-4 w-4 mr-1" /> クリア
           </Button>
