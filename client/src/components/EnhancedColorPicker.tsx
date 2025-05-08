@@ -66,10 +66,10 @@ export default function EnhancedColorPicker({
   };
 
   // キーボードイベント処理
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleInputBlur();
-      e.currentTarget.blur();
+      (e.currentTarget as HTMLInputElement).blur();
     }
   };
 

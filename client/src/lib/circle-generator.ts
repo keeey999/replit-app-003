@@ -1,7 +1,8 @@
-import { CircleConfig } from "@shared/schema";
+import { CircleConfig, CircleTheme } from "@shared/schema";
 import { drawGeometricPattern } from "./shapes";
 import { drawSymbols } from "./symbols";
 import { drawRunicText } from "./texts";
+import { getThemeById } from "./theme-presets";
 
 export function generateTransmutationCircle(
   canvas: HTMLCanvasElement,
@@ -18,22 +19,41 @@ export function generateTransmutationCircle(
   const centerY = canvas.height / 2;
   const radius = Math.min(centerX, centerY) * 0.9;
 
-  // Set background based on the background option or custom background color
+  // 選択されたテーマを取得（存在する場合）
+  let theme: CircleTheme | undefined;
+  if (config.themeId) {
+    theme = getThemeById(config.themeId);
+  }
+  
+  // テーマに基づいて背景色とプライマリカラーを設定
+  let bgColor = "#121212"; // デフォルトの背景色
+  let primaryColor = "#FFD700"; // デフォルトのプライマリカラー
   const bgType = config.backgroundColor || "dark";
   
-  // Fill canvas background
   try {
-    if (config.useCustomColors && config.customBackgroundColor) {
+    // 背景色の決定
+    if (theme) {
+      // テーマが選択されている場合はそのテーマの背景色を使用
+      bgColor = theme.backgroundColor;
+    } else if (config.useCustomColors && config.customBackgroundColor) {
       // カスタム背景色を使用
-      ctx.fillStyle = config.customBackgroundColor;
+      bgColor = config.customBackgroundColor;
     } else if (bgType === "gradient") {
+      // グラデーションの場合は直接描画
       const gradientBg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
       gradientBg.addColorStop(0, "#4338ca");
       gradientBg.addColorStop(0.5, "#6d28d9");
       gradientBg.addColorStop(1, "#be185d");
       ctx.fillStyle = gradientBg;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // プライマリカラーの決定
+      primaryColor = getPrimaryColor(config, theme);
+      
+          // グラデーションの場合は表示のための追加調整は不要
+      return drawRemainingElements(ctx, centerX, centerY, radius, config, primaryColor);
     } else {
-      let bgColor;
+      // プリセット背景色
       switch (bgType) {
         case "night":
           bgColor = "#172554";
@@ -47,54 +67,24 @@ export function generateTransmutationCircle(
         default: // dark
           bgColor = "#121212";
       }
-      ctx.fillStyle = bgColor;
     }
-  } catch (error) {
-    console.error("背景設定エラー:", error);
-    // デフォルトの背景色に戻す
-    ctx.fillStyle = "#121212";
-  }
-  
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  // Set color based on the color scheme or custom color
-  let primaryColor = "#FFD700"; // Gold by default
-  
-  try {
-    if (config.useCustomColors && config.customPrimaryColor) {
-      // カスタムカラーが設定されていればそれを使用
-      primaryColor = config.customPrimaryColor;
-    } else {
-      // 既定のカラースキームを使用
-      switch (config.colorScheme) {
-        case "azure":
-          primaryColor = "#3B82F6";
-          break;
-        case "crimson":
-          primaryColor = "#E11D48";
-          break;
-        case "emerald":
-          primaryColor = "#10B981";
-          break;
-        case "purple":
-          primaryColor = "#9333EA";
-          break;
-        case "silver":
-          primaryColor = "#CBD5E1";
-          break;
-        case "pink":
-          primaryColor = "#F472B6";
-          break;
-        default:
-          primaryColor = "#FFD700"; // Gold
-      }
-    }
+    
+    // 背景色を適用
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // プライマリカラーの決定
+    primaryColor = getPrimaryColor(config, theme);
+    
   } catch (error) {
     console.error("カラー設定エラー:", error);
-    primaryColor = "#FFD700"; // エラー時は金色に戻す
+    // エラー時はデフォルト値を使用
+    ctx.fillStyle = "#121212";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    primaryColor = "#FFD700";
   }
-
-  // Circle background - only for certain background types
+  
+  // 特定の背景タイプに対する追加の処理
   if (bgType === "paper") {
     // For light backgrounds, add a contrasting circle
     ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
@@ -102,6 +92,47 @@ export function generateTransmutationCircle(
     ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
     ctx.fill();
   }
+  
+  // 残りの要素を描画
+  drawRemainingElements(ctx, centerX, centerY, radius, config, primaryColor);
+}
+
+// プライマリカラーを決定する関数
+function getPrimaryColor(config: CircleConfig, theme?: CircleTheme): string {
+  if (theme) {
+    return theme.primaryColor;
+  } else if (config.useCustomColors && config.customPrimaryColor) {
+    return config.customPrimaryColor;
+  } else {
+    // 既定のカラースキームを使用
+    switch (config.colorScheme) {
+      case "azure":
+        return "#3B82F6";
+      case "crimson":
+        return "#E11D48";
+      case "emerald":
+        return "#10B981";
+      case "purple":
+        return "#9333EA";
+      case "silver":
+        return "#CBD5E1";
+      case "pink":
+        return "#F472B6";
+      default:
+        return "#FFD700"; // Gold
+    }
+  }
+}
+
+// 残りの要素を描画する関数
+function drawRemainingElements(
+  ctx: CanvasRenderingContext2D,
+  centerX: number,
+  centerY: number,
+  radius: number,
+  config: CircleConfig,
+  primaryColor: string
+): void {
 
   // Draw outer circle
   ctx.strokeStyle = primaryColor;
