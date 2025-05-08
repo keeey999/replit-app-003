@@ -20,11 +20,13 @@ export default function ColorPicker({ label, color, onChange }: ColorPickerProps
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [isOpen]);
 
   return (
     <div className="space-y-2">
@@ -40,6 +42,7 @@ export default function ColorPicker({ label, color, onChange }: ColorPickerProps
           <div
             className="absolute z-50 mt-2 bg-card rounded-lg shadow-lg p-3"
             ref={popover}
+            onClick={(e) => e.stopPropagation()}
           >
             <HexColorPicker color={color} onChange={onChange} />
             <div className="mt-2 text-xs flex justify-between">
