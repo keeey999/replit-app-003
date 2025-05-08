@@ -9,11 +9,38 @@ import ThemeSelector from "./ThemeSelector";
 import EnhancedColorPicker from "./EnhancedColorPicker";
 import ColorPicker from "./ColorPicker";
 import { useSwipeGesture } from "@/hooks/use-mobile";
+import { getThemeById } from "@/lib/theme-presets";
+import { calculateContrastRatio } from "@/lib/color-utils";
 
 interface ControlsProps {
   config: CircleConfig;
   onConfigChange: (config: Partial<CircleConfig>) => void;
   onInfoClick: () => void;
+}
+
+// カラースキームに基づいてプライマリカラーを取得する関数
+function getPrimaryColor(config: CircleConfig): string {
+  if (config.useCustomColors && config.customPrimaryColor) {
+    return config.customPrimaryColor;
+  } else {
+    // 既定のカラースキームを使用
+    switch (config.colorScheme) {
+      case "azure":
+        return "#3B82F6";
+      case "crimson":
+        return "#E11D48";
+      case "emerald":
+        return "#10B981";
+      case "purple":
+        return "#9333EA";
+      case "silver":
+        return "#CBD5E1";
+      case "pink":
+        return "#F472B6";
+      default:
+        return "#FFD700"; // Gold
+    }
+  }
 }
 
 export default function Controls({ config, onConfigChange, onInfoClick }: ControlsProps) {

@@ -1,91 +1,124 @@
-import * as React from "react"
+import { useState, useEffect, useCallback } from "react";
 
-const MOBILE_BREAKPOINT = 768
-
+// モバイルデバイスかどうかを判定するhook
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
+  const [isMobile, setIsMobile] = useState(false);
 
-  React.useEffect(() => {
-    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
-    const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    }
-    mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    return () => mql.removeEventListener("change", onChange)
-  }, [])
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const mobileDevices = [
+        'android', 'webos', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone'
+      ];
+      
+      // モバイルデバイスのユーザーエージェントを含むか、画面幅が768px以下ならモバイルとみなす
+      const isMobileDevice = mobileDevices.some(device => userAgent.includes(device)) || 
+                           window.innerWidth <= 768;
+      
+      setIsMobile(isMobileDevice);
+    };
 
-  return !!isMobile
-}
-
-// カスタムメディアクエリに対応したフック
-export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = React.useState<boolean>(false)
-
-  React.useEffect(() => {
-    if (typeof window !== 'object') return
+    // 初期チェック
+    checkMobile();
     
-    const mediaQuery = window.matchMedia(query)
+    // リサイズ時に再チェック
+    window.addEventListener('resize', checkMobile);
     
-    const handleChange = () => {
-      setMatches(mediaQuery.matches)
-    }
-    
-    // 初期状態を設定
-    handleChange()
-    
-    // 変更リスナーを追加
-    mediaQuery.addEventListener('change', handleChange)
-    
-    // クリーンアップ関数
     return () => {
-      mediaQuery.removeEventListener('change', handleChange)
-    }
-  }, [query])
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
-  return matches
+  return isMobile;
 }
 
-// スワイプジェスチャー検出のためのフック
+// メディアクエリをreactiveに監視するhook
+export function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    
+    // 初期値設定
+    setMatches(mediaQuery.matches);
+    
+    // 変更検知用のリスナー
+    const handleChange = (event: MediaQueryListEvent) => {
+      setMatches(event.matches);
+    };
+    
+    // メディアクエリ変更の監視を開始
+    mediaQuery.addEventListener('change', handleChange);
+    
+    // クリーンアップ
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange);
+    };
+  }, [query]);
+
+  return matches;
+}
+
+// スワイプジェスチャーを検出するhook
 export function useSwipeGesture(
-  onSwipeLeft?: () => void,
-  onSwipeRight?: () => void,
-  threshold = 50
+  onSwipeLeft: () => void = () => {}, 
+  onSwipeRight: () => void = () => {},
+  minDistance: number = 50,  // スワイプと認識する最小距離
+  maxVerticalOffset: number = 100  // 許容される縦方向のずれ
 ) {
-  const [touchStart, setTouchStart] = React.useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = React.useState<number | null>(null)
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(null);
+  const [isSwiping, setIsSwiping] = useState(false);
 
-  // 最小距離（しきい値）
-  const minSwipeDistance = threshold
+  // タッチ開始時の処理
+  const handleTouchStart = useCallback((e: React.TouchEvent | TouchEvent) => {
+    setTouchStart({
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY
+    });
+    setIsSwiping(true);
+  }, []);
 
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
-  }
+  // タッチ移動時の処理
+  const handleTouchMove = useCallback((e: React.TouchEvent | TouchEvent) => {
+    // タッチ開始位置がなければ何もしない
+    if (!touchStart || !isSwiping) return;
 
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
+    const touchEndX = e.touches[0].clientX;
+    const touchEndY = e.touches[0].clientY;
+    const deltaX = touchStart.x - touchEndX;
+    const deltaY = Math.abs(touchStart.y - touchEndY);
 
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-    
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > minSwipeDistance
-    const isRightSwipe = distance < -minSwipeDistance
-    
-    if (isLeftSwipe && onSwipeLeft) {
-      onSwipeLeft()
+    // 縦方向の移動が大きすぎる場合はスクロールと判定してスワイプ処理をキャンセル
+    if (deltaY > maxVerticalOffset) {
+      setIsSwiping(false);
+      return;
     }
-    
-    if (isRightSwipe && onSwipeRight) {
-      onSwipeRight()
-    }
-  }
 
+    // 左右のスワイプを検出
+    if (Math.abs(deltaX) > minDistance) {
+      if (deltaX > 0) {
+        // 左スワイプ
+        onSwipeLeft();
+      } else {
+        // 右スワイプ
+        onSwipeRight();
+      }
+      // 一度スワイプ検出したら連続で発火しないようにリセット
+      setIsSwiping(false);
+      setTouchStart(null);
+    }
+  }, [touchStart, isSwiping, onSwipeLeft, onSwipeRight, minDistance, maxVerticalOffset]);
+
+  // タッチ終了時の処理
+  const handleTouchEnd = useCallback(() => {
+    setIsSwiping(false);
+    setTouchStart(null);
+  }, []);
+
+  // スワイプジェスチャー用のイベントハンドラを返す
   return {
-    onTouchStart,
-    onTouchMove,
-    onTouchEnd,
-  }
+    onTouchStart: handleTouchStart,
+    onTouchMove: handleTouchMove,
+    onTouchEnd: handleTouchEnd,
+  };
 }
