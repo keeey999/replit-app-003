@@ -41,40 +41,7 @@
     --sidebar-ring: 240 5% 82%;
   }
 
-  .light {
-    --background: 0 0% 97%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 270 70% 45%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 45 85% 50%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 200 100% 45%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-    --chart-1: 0, 0%, 100%;
-    --chart-2: 0, 0%, 80%;
-    --chart-3: 0, 0%, 60%;
-    --chart-4: 0, 0%, 40%;
-    --chart-5: 0, 0%, 20%;
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 240 10% 3.9%;
-    --sidebar-primary: 270 70% 45%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 200 100% 45%;
-    --sidebar-accent-foreground: 0 0% 0%;
-    --sidebar-border: 240 5.9% 90%;
-    --sidebar-ring: 240 10% 3.9%;
-  }
+
   
   * {
     @apply border-border;
@@ -171,16 +138,10 @@
     @apply disabled:opacity-70 disabled:translate-y-0 disabled:shadow-none;
   }
   
-  /* Dark/Light mode improvements */
-  .dark .action-button {
+  /* Button styles */
+  .action-button {
     @apply bg-gradient-to-r from-purple-600 to-purple-800;
     @apply hover:from-purple-500 hover:to-purple-700;
-    @apply text-white;
-  }
-  
-  .light .action-button {
-    @apply bg-gradient-to-r from-purple-500 to-purple-700;
-    @apply hover:from-purple-400 hover:to-purple-600;
     @apply text-white;
   }
   

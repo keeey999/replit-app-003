@@ -192,7 +192,7 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
                       onClick={() => onConfigChange({ colorScheme: color.value })}
                       className={`w-8 h-8 rounded-full ${color.bgClass} ${
                         config.colorScheme === color.value 
-                          ? "border-2 border-white dark:border-white" 
+                          ? "border-2 border-white" 
                           : "border-2 border-transparent"
                       }`}
                       title={color.label}
@@ -212,7 +212,7 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
                       onClick={() => onConfigChange({ backgroundColor: bg.value })}
                       className={`w-8 h-8 rounded-md ${bg.bgClass} ${
                         (config.backgroundColor || 'dark') === bg.value 
-                          ? "border-2 border-white dark:border-white" 
+                          ? "border-2 border-white" 
                           : "border-2 border-transparent"
                       }`}
                       title={bg.label}

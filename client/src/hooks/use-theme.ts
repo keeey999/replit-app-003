@@ -2,24 +2,17 @@ import { useEffect } from "react";
 import { useTheme as useNextTheme } from "next-themes";
 
 export function useTheme() {
-  const { theme, setTheme, systemTheme } = useNextTheme();
+  const { setTheme } = useNextTheme();
   
-  // Initialize theme based on user preference
+  // 常に固定テーマを使用
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setTheme(savedTheme);
-    } else {
-      setTheme("dark"); // Default to dark theme
-    }
+    setTheme("dark"); // ダークテーマに固定
   }, [setTheme]);
   
-  // Save theme preference to localStorage
-  useEffect(() => {
-    if (theme) {
-      localStorage.setItem("theme", theme);
-    }
-  }, [theme]);
-  
-  return { theme, setTheme, systemTheme };
+  // テーマ切り替え関数は空の関数を返す
+  return { 
+    theme: "dark", 
+    setTheme: () => {}, // 何もしない関数
+    systemTheme: "dark" 
+  };
 }
