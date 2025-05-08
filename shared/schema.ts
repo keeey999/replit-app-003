@@ -38,6 +38,17 @@ export const circleSchema = createInsertSchema(circles).omit({
   userId: true,
 });
 
+export const circleThemeSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string().optional(),
+  primaryColor: z.string(),
+  backgroundColor: z.string(),
+  accentColor: z.string().optional(),
+  category: z.string().optional(), // 'japanese', 'futuristic', 'ancient' など
+  isPreset: z.boolean().default(false),
+});
+
 export const circleConfigSchema = z.object({
   complexity: z.number().min(1).max(5),
   style: z.string(),
@@ -46,12 +57,14 @@ export const circleConfigSchema = z.object({
   customPrimaryColor: z.string().optional(),
   customBackgroundColor: z.string().optional(),
   useCustomColors: z.boolean().default(false),
+  themeId: z.string().optional(),
   size: z.number().min(300).max(1000),
   symbolDensity: z.number().min(1).max(5),
   showText: z.boolean(),
   animation: z.boolean(),
 });
 
+export type CircleTheme = z.infer<typeof circleThemeSchema>;
 export type CircleConfig = z.infer<typeof circleConfigSchema>;
 export type InsertCircle = z.infer<typeof circleSchema>;
 export type Circle = typeof circles.$inferSelect;

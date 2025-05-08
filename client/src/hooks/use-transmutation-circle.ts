@@ -13,6 +13,7 @@ const DEFAULT_CONFIG: CircleConfig = {
   customPrimaryColor: "#FFD700",
   customBackgroundColor: "#121212",
   useCustomColors: false,
+  themeId: undefined,
   size: 500,
   symbolDensity: 3,
   showText: true,
