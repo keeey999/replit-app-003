@@ -15,14 +15,14 @@ export default function Header() {
           <h1 className="text-xl md:text-2xl font-cinzel font-bold">
             <Link href="/">
               <div className="flex items-center">
-                <div className="flex items-center">
-                  <span className="text-secondary text-2xl mr-1">✦</span>
-                  <span className="bg-gradient-to-r from-primary via-purple-400 to-secondary bg-clip-text text-transparent font-bold">
-                    Alche<span className="text-accent">Maker</span>
+                <div className="flex items-center bg-gradient-to-br from-slate-900 to-slate-800 px-3 py-1 rounded-lg shadow-inner border border-slate-700">
+                  <span className="text-yellow-400 text-2xl mr-2">✧</span>
+                  <span className="bg-gradient-to-r from-yellow-400 via-purple-400 to-pink-500 bg-clip-text text-transparent font-bold tracking-wider">
+                    Alche<span className="text-pink-400">Maker</span>
                   </span>
-                  <span className="text-secondary mx-1">✦</span>
+                  <span className="text-yellow-400 text-2xl mx-2">✧</span>
                 </div>
-                <span className="text-secondary ml-1">錬成陣</span>
+                <span className="text-yellow-300 ml-2 font-semibold text-sm bg-slate-900/50 px-2 py-0.5 rounded-md">錬成陣</span>
               </div>
             </Link>
           </h1>

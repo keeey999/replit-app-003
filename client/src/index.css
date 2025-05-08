@@ -131,26 +131,8 @@
     letter-spacing: 0.05em;
   }
   
-  /* Better button styles */
-  .action-button {
-    @apply rounded-full font-bold shadow-lg transition-all duration-300;
-    @apply hover:shadow-xl hover:translate-y-[-2px];
-    @apply disabled:opacity-70 disabled:translate-y-0 disabled:shadow-none;
-  }
-  
-  /* Button styles */
-  .action-button {
-    @apply bg-gradient-to-r from-purple-600 to-purple-800;
-    @apply hover:from-purple-500 hover:to-purple-700;
-    @apply text-white;
-  }
-  
   /* Responsive improvements */
   @media (max-width: 640px) {
-    .action-button {
-      @apply px-3 py-2 text-sm;
-    }
-    
     .container {
       @apply px-2;
     }
