@@ -32,10 +32,10 @@ export default function Home() {
           />
           
           {/* Action Buttons */}
-          <div className="mt-4 flex justify-center space-x-4">
+          <div className="mt-4 flex flex-wrap justify-center gap-3 sm:gap-4">
             <button 
               onClick={generateCircle}
-              className="action-button px-6 py-3 flex items-center space-x-2"
+              className="action-button px-4 py-2 sm:px-6 sm:py-3 flex items-center"
               disabled={isGenerating}
             >
               <span className="mr-2">✨</span>
@@ -44,7 +44,7 @@ export default function Home() {
             
             <button 
               onClick={downloadCircle}
-              className="action-button px-6 py-3 flex items-center space-x-2"
+              className="action-button px-4 py-2 sm:px-6 sm:py-3 flex items-center"
               disabled={isGenerating}
             >
               <span className="mr-2">⬇️</span>
@@ -53,7 +53,7 @@ export default function Home() {
             
             <button 
               onClick={shareCircle}
-              className="action-button px-6 py-3 flex items-center space-x-2"
+              className="action-button px-4 py-2 sm:px-6 sm:py-3 flex items-center"
               disabled={isGenerating}
             >
               <span className="mr-2">🔗</span>

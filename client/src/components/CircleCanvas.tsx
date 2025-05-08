@@ -16,7 +16,7 @@ export default function CircleCanvas({
   onShare 
 }: CircleCanvasProps) {
   return (
-    <div className="bg-card-gradient rounded-lg shadow-lg overflow-hidden flex flex-col items-center justify-center p-6 relative min-h-[350px] md:min-h-[500px]">
+    <div className="bg-card-gradient rounded-lg shadow-lg overflow-hidden flex flex-col items-center justify-center p-4 md:p-6 relative min-h-[350px] md:min-h-[500px]">
       <div className="absolute inset-0 flex items-center justify-center">
         {/* Decorative background elements */}
         <div className="absolute inset-0 opacity-80">
@@ -24,11 +24,17 @@ export default function CircleCanvas({
         </div>
         
         {/* Decorative spinning elements - placed to be partially visible around the canvas */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 md:block hidden">
           <div className="w-[120%] h-[120%] border-2 border-primary/50 rounded-full animate-spin-slow animate-pulse-glow"></div>
           <div className="absolute w-[115%] h-[115%] border-2 border-secondary/50 rounded-full animate-spin-slow" style={{ animationDirection: 'reverse' }}></div>
           <div className="absolute w-[110%] h-[110%] border border-accent/40 rounded-full animate-spin-slow" style={{ animationDelay: '-2s' }}></div>
           <div className="absolute w-[105%] h-[105%] border border-secondary/30 rounded-full animate-spin-slow" style={{ animationDuration: '15s' }}></div>
+        </div>
+        
+        {/* Mobile-optimized decorative elements - simpler, better performance */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 md:hidden">
+          <div className="w-[105%] h-[105%] border-2 border-primary/50 rounded-full animate-spin-slow animate-pulse-glow"></div>
+          <div className="absolute w-[95%] h-[95%] border border-secondary/50 rounded-full animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '20s' }}></div>
         </div>
       </div>
       
