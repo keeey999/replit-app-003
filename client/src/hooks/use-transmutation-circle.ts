@@ -122,25 +122,58 @@ export function useTransmutationCircle() {
     if (!canvasRef.current) return;
     
     try {
-      // Create an anchor element
-      const link = document.createElement('a');
-      // Set the download attribute with a filename
-      link.download = `alchemaker-${Date.now()}.png`;
-      // Get the canvas data as a PNG image
-      const dataUrl = canvasRef.current.toDataURL('image/png');
-      // Set the href to the data URL
-      link.href = dataUrl;
-      // Append to the document temporarily
-      document.body.appendChild(link);
-      // Programmatically click the link to trigger the download
-      link.click();
-      // Remove the link element
-      document.body.removeChild(link);
+      // Create a temporary canvas to ensure we have a clean image
+      const tempCanvas = document.createElement('canvas');
+      const tempCtx = tempCanvas.getContext('2d');
       
-      toast({
-        title: "ダウンロード完了",
-        description: "錬成陣を端末に保存しました",
-      });
+      // Match the dimensions of the original canvas
+      tempCanvas.width = canvasRef.current.width;
+      tempCanvas.height = canvasRef.current.height;
+      
+      // Draw the original canvas content onto the temporary canvas
+      if (tempCtx) {
+        // Fill with a transparent background first
+        tempCtx.fillStyle = 'rgba(0, 0, 0, 0)';
+        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+        
+        // Draw the original canvas
+        tempCtx.drawImage(canvasRef.current, 0, 0);
+        
+        // Get the data URL from the temporary canvas
+        const dataUrl = tempCanvas.toDataURL('image/png');
+        
+        // Use FileSaver.js approach for broader compatibility
+        const binStr = atob(dataUrl.split(',')[1]);
+        const len = binStr.length;
+        const arr = new Uint8Array(len);
+        
+        for (let i = 0; i < len; i++) {
+          arr[i] = binStr.charCodeAt(i);
+        }
+        
+        // Create a Blob and trigger download
+        const blob = new Blob([arr], { type: 'image/png' });
+        const blobUrl = URL.createObjectURL(blob);
+        
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = `alchemaker-${Date.now()}.png`;
+        
+        // Add to document to ensure it works across browsers
+        document.body.appendChild(link);
+        link.click();
+        
+        // Clean up
+        setTimeout(() => {
+          document.body.removeChild(link);
+          URL.revokeObjectURL(blobUrl);
+        }, 100);
+        
+        toast({
+          title: "ダウンロード完了",
+          description: "錬成陣を端末に保存しました",
+        });
+      }
     } catch (error) {
       console.error("ダウンロードエラー:", error);
       toast({
@@ -149,7 +182,7 @@ export function useTransmutationCircle() {
         variant: "destructive",
       });
     }
-  }, [toast]);
+  }, [canvasRef, toast]);
 
   // Share the current circle
   const shareCircle = useCallback(async () => {
