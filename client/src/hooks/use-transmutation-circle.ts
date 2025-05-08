@@ -9,6 +9,7 @@ const DEFAULT_CONFIG: CircleConfig = {
   complexity: 3,
   style: "classic",
   colorScheme: "gold",
+  backgroundColor: "dark",
   size: 500,
   symbolDensity: 3,
   showText: true,

@@ -170,4 +170,15 @@
     @apply hover:from-purple-400 hover:to-purple-600;
     @apply text-white;
   }
+  
+  /* Responsive improvements */
+  @media (max-width: 640px) {
+    .action-button {
+      @apply px-3 py-2 text-sm;
+    }
+    
+    .container {
+      @apply px-2;
+    }
+  }
 }

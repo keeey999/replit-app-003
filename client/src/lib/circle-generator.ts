@@ -18,6 +18,36 @@ export function generateTransmutationCircle(
   const centerY = canvas.height / 2;
   const radius = Math.min(centerX, centerY) * 0.9;
 
+  // Set background based on the background option
+  const bgType = config.backgroundColor || "dark";
+  
+  // Fill canvas background
+  if (bgType === "gradient") {
+    const gradientBg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradientBg.addColorStop(0, "#4338ca");
+    gradientBg.addColorStop(0.5, "#6d28d9");
+    gradientBg.addColorStop(1, "#be185d");
+    ctx.fillStyle = gradientBg;
+  } else {
+    let bgColor;
+    switch (bgType) {
+      case "night":
+        bgColor = "#172554";
+        break;
+      case "paper":
+        bgColor = "#fef3c7";
+        break;
+      case "stone":
+        bgColor = "#4b5563";
+        break;
+      default: // dark
+        bgColor = "#121212";
+    }
+    ctx.fillStyle = bgColor;
+  }
+  
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   // Set color based on the color scheme
   let primaryColor = "#FFD700"; // Gold by default
   switch (config.colorScheme) {
@@ -33,15 +63,24 @@ export function generateTransmutationCircle(
     case "purple":
       primaryColor = "#9333EA";
       break;
+    case "silver":
+      primaryColor = "#CBD5E1";
+      break;
+    case "pink":
+      primaryColor = "#F472B6";
+      break;
     default:
       primaryColor = "#FFD700"; // Gold
   }
 
-  // Background
-  ctx.fillStyle = "#121212";
-  ctx.beginPath();
-  ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-  ctx.fill();
+  // Circle background - only for certain background types
+  if (bgType === "paper") {
+    // For light backgrounds, add a contrasting circle
+    ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
 
   // Draw outer circle
   ctx.strokeStyle = primaryColor;

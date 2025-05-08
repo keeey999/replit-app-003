@@ -96,18 +96,38 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
           {/* Color Scheme */}
           <div className="space-y-2">
             <Label className="text-sm">カラースキーム</Label>
-            <div className="flex space-x-2">
+            <div className="flex flex-wrap gap-2">
               {colorOptions.map((color) => (
                 <button
                   key={color.value}
                   onClick={() => onConfigChange({ colorScheme: color.value })}
                   className={`w-8 h-8 rounded-full ${color.bgClass} ${
                     config.colorScheme === color.value 
-                      ? "border-2 border-white" 
+                      ? "border-2 border-white dark:border-white" 
                       : "border-2 border-transparent"
                   }`}
                   title={color.label}
                   aria-label={`色を${color.label}に設定`}
+                />
+              ))}
+            </div>
+          </div>
+          
+          {/* Background Options */}
+          <div className="space-y-2">
+            <Label className="text-sm">背景</Label>
+            <div className="flex flex-wrap gap-2">
+              {backgroundOptions.map((bg) => (
+                <button
+                  key={bg.value}
+                  onClick={() => onConfigChange({ backgroundColor: bg.value })}
+                  className={`w-8 h-8 rounded-md ${bg.bgClass} ${
+                    (config.backgroundColor || 'dark') === bg.value 
+                      ? "border-2 border-white dark:border-white" 
+                      : "border-2 border-transparent"
+                  }`}
+                  title={bg.label}
+                  aria-label={`背景を${bg.label}に設定`}
                 />
               ))}
             </div>
@@ -119,7 +139,7 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
               <Label className="text-sm">詳細設定</Label>
               <button 
                 onClick={() => setIsAdvancedOpen(!isAdvancedOpen)} 
-                className="text-accent hover:text-secondary text-xs transition-colors flex items-center"
+                className="text-primary dark:text-accent hover:text-secondary text-xs transition-colors flex items-center"
               >
                 {isAdvancedOpen ? "隠す" : "表示"}
                 {isAdvancedOpen ? <ChevronUp className="h-3 w-3 ml-1" /> : <ChevronDown className="h-3 w-3 ml-1" />}
