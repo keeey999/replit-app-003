@@ -194,4 +194,29 @@
       @apply px-2;
     }
   }
+  
+  /* React Color Picker のスタイルカスタマイズ */
+  .react-colorful {
+    width: 100% !important;
+    height: 150px !important;
+  }
+  
+  /* カラーピッカーのポップオーバーのZ-indexを上げる */
+  .react-colorful__saturation {
+    border-radius: 0.5rem 0.5rem 0 0 !important;
+  }
+  
+  .react-colorful__hue {
+    height: 15px !important;
+    margin-top: 8px !important;
+    border-radius: 0 0 0.5rem 0.5rem !important;
+  }
+  
+  /* カラーピッカーのサムネイル */
+  .react-colorful__saturation-pointer,
+  .react-colorful__hue-pointer {
+    width: 16px !important;
+    height: 16px !important;
+    border-width: 2px !important;
+  }
 }

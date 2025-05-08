@@ -4,7 +4,8 @@ import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { CircleConfig } from "@shared/schema";
-import { CircleHelp, ChevronUp, ChevronDown } from "lucide-react";
+import { CircleHelp, ChevronUp, ChevronDown, Brush, Palette } from "lucide-react";
+import ColorPicker from "./ColorPicker";
 
 interface ControlsProps {
   config: CircleConfig;
@@ -133,6 +134,36 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
             </div>
           </div>
           
+          {/* Custom Color Option */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="useCustomColors" className="text-sm flex items-center">
+                <Palette className="w-4 h-4 mr-1" />
+                カスタムカラー
+              </Label>
+              <Switch
+                id="useCustomColors"
+                checked={config.useCustomColors}
+                onCheckedChange={(checked) => onConfigChange({ useCustomColors: checked })}
+              />
+            </div>
+            
+            {config.useCustomColors && (
+              <div className="pt-2 space-y-4 grid grid-cols-2 gap-4">
+                <ColorPicker
+                  label="メイン色"
+                  color={config.customPrimaryColor || "#FFD700"}
+                  onChange={(color) => onConfigChange({ customPrimaryColor: color })}
+                />
+                <ColorPicker
+                  label="背景色"
+                  color={config.customBackgroundColor || "#121212"}
+                  onChange={(color) => onConfigChange({ customBackgroundColor: color })}
+                />
+              </div>
+            )}
+          </div>
+
           {/* Advanced Options */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">

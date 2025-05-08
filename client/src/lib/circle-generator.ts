@@ -18,11 +18,14 @@ export function generateTransmutationCircle(
   const centerY = canvas.height / 2;
   const radius = Math.min(centerX, centerY) * 0.9;
 
-  // Set background based on the background option
+  // Set background based on the background option or custom background color
   const bgType = config.backgroundColor || "dark";
   
   // Fill canvas background
-  if (bgType === "gradient") {
+  if (config.useCustomColors && config.customBackgroundColor) {
+    // カスタム背景色を使用
+    ctx.fillStyle = config.customBackgroundColor;
+  } else if (bgType === "gradient") {
     const gradientBg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
     gradientBg.addColorStop(0, "#4338ca");
     gradientBg.addColorStop(0.5, "#6d28d9");
@@ -48,29 +51,36 @@ export function generateTransmutationCircle(
   
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Set color based on the color scheme
+  // Set color based on the color scheme or custom color
   let primaryColor = "#FFD700"; // Gold by default
-  switch (config.colorScheme) {
-    case "azure":
-      primaryColor = "#3B82F6";
-      break;
-    case "crimson":
-      primaryColor = "#E11D48";
-      break;
-    case "emerald":
-      primaryColor = "#10B981";
-      break;
-    case "purple":
-      primaryColor = "#9333EA";
-      break;
-    case "silver":
-      primaryColor = "#CBD5E1";
-      break;
-    case "pink":
-      primaryColor = "#F472B6";
-      break;
-    default:
-      primaryColor = "#FFD700"; // Gold
+  
+  if (config.useCustomColors && config.customPrimaryColor) {
+    // カスタムカラーが設定されていればそれを使用
+    primaryColor = config.customPrimaryColor;
+  } else {
+    // 既定のカラースキームを使用
+    switch (config.colorScheme) {
+      case "azure":
+        primaryColor = "#3B82F6";
+        break;
+      case "crimson":
+        primaryColor = "#E11D48";
+        break;
+      case "emerald":
+        primaryColor = "#10B981";
+        break;
+      case "purple":
+        primaryColor = "#9333EA";
+        break;
+      case "silver":
+        primaryColor = "#CBD5E1";
+        break;
+      case "pink":
+        primaryColor = "#F472B6";
+        break;
+      default:
+        primaryColor = "#FFD700"; // Gold
+    }
   }
 
   // Circle background - only for certain background types
