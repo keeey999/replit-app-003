@@ -28,7 +28,7 @@ export default function Header() {
             <Link href="/">
               <a className="flex items-center">
                 <span className="text-primary">錬成陣</span>{" "}
-                <span className="text-secondary ml-2">Generator</span>
+                <span className="text-secondary ml-2">ジェネレーター</span>
               </a>
             </Link>
           </h1>
@@ -55,7 +55,7 @@ export default function Header() {
               asChild
               className="text-accent hover:text-secondary transition-colors"
             >
-              <Link href="/">Home</Link>
+              <Link href="/">ホーム</Link>
             </Button>
           )}
           
@@ -72,7 +72,7 @@ export default function Header() {
           
           <div className="hidden md:block">
             <span className="font-japanese text-sm">
-              鋼の錬金術師
+              神秘の図形
             </span>
           </div>
         </div>
