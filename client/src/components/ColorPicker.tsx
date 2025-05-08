@@ -40,7 +40,7 @@ export default function ColorPicker({ label, color, onChange }: ColorPickerProps
 
         {isOpen && (
           <div
-            className="absolute z-50 mt-2 bg-card rounded-lg shadow-lg p-3"
+            className="absolute z-50 mt-2 bg-card rounded-lg shadow-lg p-3 left-0 sm:left-auto bottom-full sm:bottom-auto"
             ref={popover}
             onClick={(e) => e.stopPropagation()}
           >
@@ -48,7 +48,7 @@ export default function ColorPicker({ label, color, onChange }: ColorPickerProps
             <div className="mt-2 text-xs flex justify-between">
               <span>現在の色: {color}</span>
               <button 
-                className="text-primary hover:text-accent"
+                className="text-primary hover:text-accent ml-2 px-2 py-1 bg-slate-700 rounded-md"
                 onClick={() => setIsOpen(false)}
               >
                 閉じる

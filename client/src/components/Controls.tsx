@@ -79,6 +79,9 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
     { value: "dark", label: "暗黒", bgClass: "bg-black" },
     { value: "gradient", label: "虹彩", bgClass: "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" },
     { value: "night", label: "夜空", bgClass: "bg-blue-900" },
+    { value: "mystic", label: "神秘", bgClass: "bg-purple-900" },
+    { value: "forest", label: "森林", bgClass: "bg-green-900" },
+    { value: "blood", label: "血潮", bgClass: "bg-red-900" },
     { value: "paper", label: "古紙", bgClass: "bg-amber-100" },
     { value: "stone", label: "石版", bgClass: "bg-gray-600" },
   ];

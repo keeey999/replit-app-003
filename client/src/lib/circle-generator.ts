@@ -58,6 +58,15 @@ export function generateTransmutationCircle(
         case "night":
           bgColor = "#172554";
           break;
+        case "mystic":
+          bgColor = "#581c87"; // purple-900
+          break;
+        case "forest":
+          bgColor = "#14532d"; // green-900
+          break;
+        case "blood":
+          bgColor = "#7f1d1d"; // red-900
+          break;
         case "paper":
           bgColor = "#fef3c7";
           break;
