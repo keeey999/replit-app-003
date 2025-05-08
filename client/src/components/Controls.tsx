@@ -106,8 +106,8 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
             <button
               className={`flex items-center gap-1 px-3 py-1 text-sm rounded-t-md transition-colors ${
                 activeTab === 'basic' 
-                  ? 'bg-background/10 text-white font-semibold' 
-                  : 'text-white/70 hover:text-white'
+                  ? 'bg-background/30 text-white font-semibold' 
+                  : 'text-white/80 hover:text-white hover:bg-background/20'
               }`}
               onClick={() => setActiveTab('basic')}
             >
@@ -117,8 +117,8 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
             <button
               className={`flex items-center gap-1 px-3 py-1 text-sm rounded-t-md transition-colors ${
                 activeTab === 'themes' 
-                  ? 'bg-background/10 text-white font-semibold' 
-                  : 'text-white/70 hover:text-white'
+                  ? 'bg-background/30 text-white font-semibold' 
+                  : 'text-white/80 hover:text-white hover:bg-background/20'
               }`}
               onClick={() => setActiveTab('themes')}
             >
@@ -128,8 +128,8 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
             <button
               className={`flex items-center gap-1 px-3 py-1 text-sm rounded-t-md transition-colors ${
                 activeTab === 'advanced' 
-                  ? 'bg-background/10 text-white font-semibold' 
-                  : 'text-white/70 hover:text-white'
+                  ? 'bg-background/30 text-white font-semibold' 
+                  : 'text-white/80 hover:text-white hover:bg-background/20'
               }`}
               onClick={() => setActiveTab('advanced')}
             >
@@ -374,25 +374,25 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
 
 
               {/* Accessibility Info */}
-              <div className="rounded-md bg-slate-800 p-3 text-xs space-y-2 mt-4 text-white">
+              <div className="rounded-md bg-slate-700 p-3 text-xs space-y-2 mt-4 text-white">
                 <h3 className="font-medium">アクセシビリティ情報</h3>
                 <p>現在の配色は、視覚障害をお持ちの方にも見やすい設計になっています。</p>
                 <p>
                   コントラスト比: {' '}
-                  <span className="font-bold text-yellow-300">
+                  <span className="font-bold text-yellow-300 text-sm">
                   {config.useCustomColors 
                     ? calculateContrastRatio(
                         config.customPrimaryColor || "#FFD700", 
-                        config.customBackgroundColor || "#121212"
+                        config.customBackgroundColor || "#1E1E2A"
                       ).toFixed(2)
                     : config.themeId 
                       ? calculateContrastRatio(
                           getThemeById(config.themeId)?.primaryColor || "#FFD700", 
-                          getThemeById(config.themeId)?.backgroundColor || "#121212"
+                          getThemeById(config.themeId)?.backgroundColor || "#1E1E2A"
                         ).toFixed(2)
                       : calculateContrastRatio(
                           getPrimaryColor(config), 
-                          "#121212"
+                          "#1E1E2A"
                         ).toFixed(2)
                   }
                   </span>

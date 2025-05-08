@@ -9,7 +9,7 @@ export default function Header() {
   const isAbout = location === "/about";
   
   return (
-    <header className="bg-card p-4 shadow-lg border-b border-primary/30">
+    <header className="bg-slate-800 p-4 shadow-lg border-b border-primary/30">
       <div className="container mx-auto flex flex-wrap justify-between items-center">
         <div className="flex items-center">
           <h1 className="text-xl md:text-2xl font-cinzel font-bold">
