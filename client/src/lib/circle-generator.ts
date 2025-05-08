@@ -26,18 +26,18 @@ export function generateTransmutationCircle(
   }
   
   // テーマに基づいて背景色とプライマリカラーを設定
-  let bgColor = "#121212"; // デフォルトの背景色
+  let bgColor = "#1E1E2A"; // デフォルトの背景色（明るめに調整）
   let primaryColor = "#FFD700"; // デフォルトのプライマリカラー
   const bgType = config.backgroundColor || "dark";
   
   try {
-    // 背景色の決定
-    if (theme) {
+    // 優先順位を修正: カスタムカラー > テーマ > プリセット
+    if (config.useCustomColors && config.customBackgroundColor) {
+      // カスタム背景色を最優先
+      bgColor = config.customBackgroundColor;
+    } else if (theme) {
       // テーマが選択されている場合はそのテーマの背景色を使用
       bgColor = theme.backgroundColor;
-    } else if (config.useCustomColors && config.customBackgroundColor) {
-      // カスタム背景色を使用
-      bgColor = config.customBackgroundColor;
     } else if (bgType === "gradient") {
       // グラデーションの場合は直接描画
       const gradientBg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
@@ -50,7 +50,7 @@ export function generateTransmutationCircle(
       // プライマリカラーの決定
       primaryColor = getPrimaryColor(config, theme);
       
-          // グラデーションの場合は表示のための追加調整は不要
+      // グラデーションの場合は表示のための追加調整は不要
       return drawRemainingElements(ctx, centerX, centerY, radius, config, primaryColor);
     } else {
       // プリセット背景色
@@ -65,7 +65,7 @@ export function generateTransmutationCircle(
           bgColor = "#4b5563";
           break;
         default: // dark
-          bgColor = "#121212";
+          bgColor = "#1E1E2A"; 
       }
     }
     
@@ -78,8 +78,8 @@ export function generateTransmutationCircle(
     
   } catch (error) {
     console.error("カラー設定エラー:", error);
-    // エラー時はデフォルト値を使用
-    ctx.fillStyle = "#121212";
+    // エラー時はデフォルト値を使用（明るめの背景色）
+    ctx.fillStyle = "#1E1E2A";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     primaryColor = "#FFD700";
   }
@@ -99,10 +99,11 @@ export function generateTransmutationCircle(
 
 // プライマリカラーを決定する関数
 function getPrimaryColor(config: CircleConfig, theme?: CircleTheme): string {
-  if (theme) {
-    return theme.primaryColor;
-  } else if (config.useCustomColors && config.customPrimaryColor) {
+  // 優先順位を修正: カスタムカラー > テーマ > プリセット
+  if (config.useCustomColors && config.customPrimaryColor) {
     return config.customPrimaryColor;
+  } else if (theme) {
+    return theme.primaryColor;
   } else {
     // 既定のカラースキームを使用
     switch (config.colorScheme) {

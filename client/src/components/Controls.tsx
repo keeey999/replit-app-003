@@ -4,7 +4,7 @@ import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { CircleConfig, CircleTheme } from "@shared/schema";
-import { CircleHelp, ChevronUp, ChevronDown, Brush, Palette, MousePointer, Zap } from "lucide-react";
+import { CircleHelp, ChevronUp, ChevronDown, Brush, Palette, MousePointer, Zap, PaintBucket } from "lucide-react";
 import ThemeSelector from "./ThemeSelector";
 import EnhancedColorPicker from "./EnhancedColorPicker";
 import ColorPicker from "./ColorPicker";
@@ -224,10 +224,10 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
               
               {/* Custom Color Option */}
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between bg-slate-700 p-2 rounded-md">
                   <Label htmlFor="useCustomColors" className="text-sm flex items-center">
-                    <Palette className="w-4 h-4 mr-1" />
-                    カスタムカラー
+                    <Palette className="w-5 h-5 mr-2 text-secondary" />
+                    <span className="font-medium">カスタムカラー</span>
                   </Label>
                   <Switch
                     id="useCustomColors"
@@ -237,17 +237,26 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
                 </div>
                 
                 {config.useCustomColors && (
-                  <div className="pt-2 space-y-4 grid grid-cols-2 gap-4">
-                    <ColorPicker
-                      label="メイン色"
-                      color={config.customPrimaryColor || "#FFD700"}
-                      onChange={(color) => onConfigChange({ customPrimaryColor: color })}
-                    />
-                    <ColorPicker
-                      label="背景色"
-                      color={config.customBackgroundColor || "#121212"}
-                      onChange={(color) => onConfigChange({ customBackgroundColor: color })}
-                    />
+                  <div className="mt-3 p-3 space-y-4 rounded-md bg-slate-800 border border-slate-600">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="bg-slate-700/50 p-2 rounded-md">
+                        <ColorPicker
+                          label="メイン色"
+                          color={config.customPrimaryColor || "#FFD700"}
+                          onChange={(color) => onConfigChange({ customPrimaryColor: color })}
+                        />
+                      </div>
+                      <div className="bg-slate-700/50 p-2 rounded-md">
+                        <ColorPicker
+                          label="背景色"
+                          color={config.customBackgroundColor || "#1E1E2A"}
+                          onChange={(color) => onConfigChange({ customBackgroundColor: color })}
+                        />
+                      </div>
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-2">
+                      カスタムカラーはテーマ設定よりも優先されます
+                    </div>
                   </div>
                 )}
               </div>
@@ -276,44 +285,56 @@ export default function Controls({ config, onConfigChange, onInfoClick }: Contro
                 }}
               />
 
-              <div className="space-y-2 pt-2">
-                <Label className="text-sm">配色の調整</Label>
-                <div className="space-y-4">
-                  <EnhancedColorPicker
-                    label="メイン色"
-                    color={config.themeId && !config.useCustomColors 
-                      ? getThemeById(config.themeId)?.primaryColor || "#FFD700"
-                      : config.customPrimaryColor || "#FFD700"
-                    }
-                    backgroundColor={config.themeId && !config.useCustomColors
-                      ? getThemeById(config.themeId)?.backgroundColor || "#121212"
-                      : config.customBackgroundColor || "#121212"
-                    }
-                    onChange={(color) => {
-                      // カスタムカラーモードに切り替え
-                      onConfigChange({ 
-                        customPrimaryColor: color,
-                        useCustomColors: true,
-                        themeId: undefined // テーマの選択を解除
-                      });
-                    }}
-                  />
+              <div className="space-y-2 pt-4 mt-2 border-t border-slate-600">
+                <div className="flex items-center justify-between">
+                  <Label className="text-sm font-medium flex items-center">
+                    <PaintBucket className="w-5 h-5 mr-2 text-secondary" />
+                    配色の調整
+                  </Label>
+                </div>
+                <p className="text-xs text-muted-foreground mb-2">
+                  選択したテーマをベースに色を調整できます。変更するとカスタムカラーモードになります。
+                </p>
+                <div className="space-y-4 p-3 rounded-md bg-slate-800 border border-slate-600">
+                  <div className="bg-slate-700/50 p-2 rounded-md">
+                    <EnhancedColorPicker
+                      label="メイン色"
+                      color={config.themeId && !config.useCustomColors 
+                        ? getThemeById(config.themeId)?.primaryColor || "#FFD700"
+                        : config.customPrimaryColor || "#FFD700"
+                      }
+                      backgroundColor={config.themeId && !config.useCustomColors
+                        ? getThemeById(config.themeId)?.backgroundColor || "#1E1E2A"
+                        : config.customBackgroundColor || "#1E1E2A"
+                      }
+                      onChange={(color) => {
+                        // カスタムカラーモードに切り替え
+                        onConfigChange({ 
+                          customPrimaryColor: color,
+                          useCustomColors: true,
+                          themeId: undefined // テーマの選択を解除
+                        });
+                      }}
+                    />
+                  </div>
                   
-                  <EnhancedColorPicker
-                    label="背景色"
-                    color={config.themeId && !config.useCustomColors
-                      ? getThemeById(config.themeId)?.backgroundColor || "#121212"
-                      : config.customBackgroundColor || "#121212"
-                    }
-                    onChange={(color) => {
-                      // カスタムカラーモードに切り替え
-                      onConfigChange({ 
-                        customBackgroundColor: color,
-                        useCustomColors: true,
-                        themeId: undefined // テーマの選択を解除
-                      });
-                    }}
-                  />
+                  <div className="bg-slate-700/50 p-2 rounded-md">
+                    <EnhancedColorPicker
+                      label="背景色"
+                      color={config.themeId && !config.useCustomColors
+                        ? getThemeById(config.themeId)?.backgroundColor || "#1E1E2A"
+                        : config.customBackgroundColor || "#1E1E2A"
+                      }
+                      onChange={(color) => {
+                        // カスタムカラーモードに切り替え
+                        onConfigChange({ 
+                          customBackgroundColor: color,
+                          useCustomColors: true,
+                          themeId: undefined // テーマの選択を解除
+                        });
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
