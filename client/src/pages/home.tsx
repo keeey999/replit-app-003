@@ -41,26 +41,6 @@ export default function Home() {
               <span className="mr-2 text-xl">✨</span>
               <span>新しい錬成陣を生成</span>
             </button>
-            
-            <div className="flex justify-center gap-4 mt-2">
-              <button 
-                onClick={downloadCircle}
-                className="bg-slate-800 hover:bg-slate-700 text-white font-medium px-4 py-2 rounded-lg shadow-md flex items-center justify-center transition-all hover:shadow-lg border border-slate-700 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex-1"
-                disabled={isGenerating}
-              >
-                <span className="mr-2 text-lg">⬇️</span>
-                <span>ダウンロード</span>
-              </button>
-              
-              <button 
-                onClick={shareCircle}
-                className="bg-slate-800 hover:bg-slate-700 text-white font-medium px-4 py-2 rounded-lg shadow-md flex items-center justify-center transition-all hover:shadow-lg border border-slate-700 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex-1"
-                disabled={isGenerating}
-              >
-                <span className="mr-2 text-lg">🔗</span>
-                <span>共有</span>
-              </button>
-            </div>
           </div>
         </div>
       </div>
