@@ -22,7 +22,6 @@ export default function Header() {
                   </span>
                   <span className="text-yellow-400 text-xl md:text-2xl mx-1 md:mx-2">✧</span>
                 </div>
-                <span className="text-yellow-300 mt-1 sm:mt-0 sm:ml-2 font-semibold text-xs md:text-sm bg-slate-900/50 px-2 py-0.5 rounded-md">錬成陣ジェネレーター</span>
               </div>
             </Link>
           </h1>

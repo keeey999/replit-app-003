@@ -21,6 +21,18 @@ export default function Home() {
   
   return (
     <div className="container mx-auto p-4">
+      {/* モバイルでは順序を入れ替え、デスクトップでは元の順序を維持 */}
+      <div className="block lg:hidden mb-4">
+        {/* モバイル表示時のコントロール（先頭に表示） */}
+        <div className="flex flex-col gap-4">
+          <Controls
+            config={circleConfig}
+            onConfigChange={updateCircleConfig}
+            onInfoClick={() => setIsInfoModalOpen(true)}
+          />
+        </div>
+      </div>
+
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Left Side - Circle Display */}
         <div className="lg:w-2/3 flex flex-col">
@@ -62,8 +74,8 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Right Side - Controls */}
-        <div className="lg:w-1/3 flex flex-col gap-4">
+        {/* Desktop Only - Controls */}
+        <div className="hidden lg:flex flex-col gap-4 lg:w-1/3">
           <Controls
             config={circleConfig}
             onConfigChange={updateCircleConfig}
