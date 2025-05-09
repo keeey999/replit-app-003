@@ -30,6 +30,38 @@ export default function Home() {
             onConfigChange={updateCircleConfig}
             onInfoClick={() => setIsInfoModalOpen(true)}
           />
+          
+          {/* モバイル表示時の生成ボタン（コントロールの下に配置） */}
+          <div className="flex flex-col gap-4">
+            <button 
+              onClick={generateCircle}
+              className="bg-gradient-to-r from-yellow-500 to-pink-500 hover:from-yellow-600 hover:to-pink-600 text-white font-bold px-6 py-3 rounded-full shadow-lg flex items-center justify-center transition-all transform hover:scale-105 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none w-full"
+              disabled={isGenerating}
+            >
+              <span className="mr-2 text-xl">✨</span>
+              <span>新しい錬成陣を生成</span>
+            </button>
+            
+            <div className="flex justify-center gap-4 mt-2">
+              <button 
+                onClick={downloadCircle}
+                className="bg-slate-800 hover:bg-slate-700 text-white font-medium px-4 py-2 rounded-lg shadow-md flex items-center justify-center transition-all hover:shadow-lg border border-slate-700 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex-1"
+                disabled={isGenerating}
+              >
+                <span className="mr-2 text-lg">⬇️</span>
+                <span>ダウンロード</span>
+              </button>
+              
+              <button 
+                onClick={shareCircle}
+                className="bg-slate-800 hover:bg-slate-700 text-white font-medium px-4 py-2 rounded-lg shadow-md flex items-center justify-center transition-all hover:shadow-lg border border-slate-700 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex-1"
+                disabled={isGenerating}
+              >
+                <span className="mr-2 text-lg">🔗</span>
+                <span>共有</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -45,14 +77,7 @@ export default function Home() {
           
           {/* Action Buttons */}
           <div className="mt-6 flex flex-wrap justify-center gap-4 sm:gap-5">
-            <button 
-              onClick={generateCircle}
-              className="bg-gradient-to-r from-yellow-500 to-pink-500 hover:from-yellow-600 hover:to-pink-600 text-white font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-full shadow-lg flex items-center justify-center transition-all transform hover:scale-105 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
-              disabled={isGenerating}
-            >
-              <span className="mr-2 text-xl">✨</span>
-              <span>新しい錬成陣を生成</span>
-            </button>
+
             
             <button 
               onClick={downloadCircle}
@@ -81,6 +106,18 @@ export default function Home() {
             onConfigChange={updateCircleConfig}
             onInfoClick={() => setIsInfoModalOpen(true)}
           />
+          
+          {/* デスクトップ表示時の生成ボタン */}
+          <div className="mt-4">
+            <button 
+              onClick={generateCircle}
+              className="bg-gradient-to-r from-yellow-500 to-pink-500 hover:from-yellow-600 hover:to-pink-600 text-white font-bold px-6 py-3 rounded-full shadow-lg flex items-center justify-center w-full transition-all transform hover:scale-105 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+              disabled={isGenerating}
+            >
+              <span className="mr-2 text-xl">✨</span>
+              <span>新しい錬成陣を生成</span>
+            </button>
+          </div>
         </div>
       </div>
       

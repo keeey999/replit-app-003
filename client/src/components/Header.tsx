@@ -10,11 +10,11 @@ export default function Header() {
   
   return (
     <header className="bg-slate-800 p-2 sm:p-3 md:p-4 shadow-lg border-b border-primary/30">
-      <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
-        <div className="flex items-center justify-center sm:justify-start w-full sm:w-auto">
+      <div className="container mx-auto flex justify-between items-center">
+        <div className="flex items-center justify-center">
           <h1 className="text-lg md:text-2xl font-cinzel font-bold">
             <Link href="/">
-              <div className="flex flex-col sm:flex-row items-center">
+              <div className="flex items-center">
                 <div className="flex items-center bg-gradient-to-br from-slate-900 to-slate-800 px-2 md:px-3 py-1 rounded-lg shadow-inner border border-slate-700">
                   <span className="text-yellow-400 text-xl md:text-2xl mr-1 md:mr-2">✧</span>
                   <span className="bg-gradient-to-r from-yellow-400 via-purple-400 to-pink-500 bg-clip-text text-transparent font-bold tracking-wider">
@@ -27,7 +27,7 @@ export default function Header() {
           </h1>
         </div>
         
-        <div className="flex items-center space-x-2 md:space-x-4 mt-2 sm:mt-0">
+        <div className="flex items-center space-x-2 md:space-x-4">
           {!isAbout && (
             <Button 
               variant="ghost" 
